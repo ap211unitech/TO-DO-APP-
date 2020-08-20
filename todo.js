@@ -7,7 +7,7 @@ window.onload = () => {
 
 //Function for Showing all Notes in WEBPAGE
 all_notes_in_document = (value, key) => {
-    document.getElementById("my-all-notes").innerHTML += `<div class="card mt-2 mb-4 mr-4" style="width: 21rem;" id=${key}>
+    document.getElementById("my-all-notes").innerHTML += `<div class="card mt-2 mb-4 mr-4" style="width: 21rem;height:auto" id=${key}>
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">${value}</p>
@@ -31,8 +31,8 @@ display_all_notes = () => {
         }
     } else {
         console.log("Empty localstorage");
-        document.getElementById("my-all-notes").innerHTML = `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section above to add notes.</h5>`;
-        
+        document.getElementById("my-all-notes").innerHTML = `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" above to add notes.</h5>`;
+
     }
 }
 let count = Object.keys(localStorage).sort().reverse()[0] === undefined ? 0 : Number(Object.keys(localStorage).sort().reverse()[0]) + 1;
@@ -43,12 +43,20 @@ let count = Object.keys(localStorage).sort().reverse()[0] === undefined ? 0 : Nu
 document.getElementById("add_note").addEventListener("click", () => {
     let text = document.getElementById("text_area").value;
     if (Object.keys(localStorage).indexOf(String(count)) == -1) {
+
+
         localStorage.setItem(String(count), text);
-        if (document.getElementById("my-all-notes").innerHTML == `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section above to add notes.</h5>`) {
+        document.getElementById("text_area").value = "";
+
+        if (document.getElementById("my-all-notes").innerHTML == `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" above to add notes.</h5>`) {
+
             document.getElementById("my-all-notes").innerHTML = "";
             all_notes_in_document(text, count)
+
         } else {
-            all_notes_in_document(text, count)
+
+            all_notes_in_document(text, count);
+
         }
         // display_all_notes();
         count++;
