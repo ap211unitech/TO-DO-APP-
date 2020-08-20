@@ -1,5 +1,5 @@
 window.onload = () => {
-    console.log("Window loaded");
+    // console.log("Window loaded");
     display_all_notes();
 }
 
@@ -30,8 +30,9 @@ display_all_notes = () => {
             all_notes_in_document(items[i], keys[i]);
         }
     } else {
-        console.log("Empty localstorage");
-        document.getElementById("my-all-notes").innerHTML = `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" above to add notes.</h5>`;
+
+        // console.log("Empty localstorage");
+        document.getElementById("my-all-notes").innerHTML = `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section to add notes.</h5>`;
 
     }
 }
@@ -48,7 +49,7 @@ document.getElementById("add_note").addEventListener("click", () => {
         localStorage.setItem(String(count), text);
         document.getElementById("text_area").value = "";
 
-        if (document.getElementById("my-all-notes").innerHTML == `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" above to add notes.</h5>`) {
+        if (document.getElementById("my-all-notes").innerHTML == `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section to add notes.</h5>`) {
 
             document.getElementById("my-all-notes").innerHTML = "";
             all_notes_in_document(text, count)
@@ -58,6 +59,7 @@ document.getElementById("add_note").addEventListener("click", () => {
             all_notes_in_document(text, count);
 
         }
+
         // display_all_notes();
         count++;
     }
@@ -66,7 +68,9 @@ document.getElementById("add_note").addEventListener("click", () => {
 
 //Deleting a Note
 function delete_note(key) {
-    console.log("Note deleted", key);
+    // console.log("Note deleted", key);
     localStorage.removeItem(key);
     display_all_notes();
 }
+
+//Searching a Note
