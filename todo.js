@@ -7,7 +7,7 @@ window.onload = () => {
 
 //Function for Showing all Notes in WEBPAGE
 all_notes_in_document = (value, key) => {
-    document.getElementById("my-all-notes").innerHTML += `<div class="card mt-2 mb-4 mr-4" style="width: 21rem;height:auto" id=${key}>
+    document.getElementById("my-all-notes").innerHTML += `<div class="noteCard card mt-2 mb-4 mr-4" style="width: 21rem;height:auto" id=${key}>
         <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">${value}</p>
@@ -74,3 +74,28 @@ function delete_note(key) {
 }
 
 //Searching a Note
+document.getElementById("search").addEventListener("input", () => {
+
+    // console.clear()
+
+    // console.log("search");
+
+    let inputVal = document.getElementById("search").value.toLowerCase();
+
+    let allcards = document.getElementsByClassName("noteCard");
+
+    Array.from(allcards).forEach(element => {
+        if (element.getElementsByTagName("p")[0].innerText.toLowerCase().includes(inputVal)) {
+
+            element.style.display = "block";
+
+        }
+
+        else {
+
+            element.style.display = "none";
+        }
+        // console.log(element.getElementsByTagName("p")[0].innerText,inputVa)
+    });
+
+})
