@@ -20,6 +20,7 @@ all_notes_in_document = (value, key) => {
 
 display_all_notes = () => {
     document.getElementById("my-all-notes").innerHTML = ""
+
     //All Values from Localstorage
     let items = Object.values(localStorage);
     let keys = Object.keys(localStorage);
@@ -30,7 +31,8 @@ display_all_notes = () => {
         }
     } else {
         console.log("Empty localstorage");
-        document.getElementById("my-all-notes").innerHTML = "<h5>No Notes Here</h5>";
+        document.getElementById("my-all-notes").innerHTML = `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section above to add notes.</h5>`;
+        
     }
 }
 let count = Object.keys(localStorage).sort().reverse()[0] === undefined ? 0 : Number(Object.keys(localStorage).sort().reverse()[0]) + 1;
@@ -42,7 +44,7 @@ document.getElementById("add_note").addEventListener("click", () => {
     let text = document.getElementById("text_area").value;
     if (Object.keys(localStorage).indexOf(String(count)) == -1) {
         localStorage.setItem(String(count), text);
-        if (document.getElementById("my-all-notes").innerHTML == "<h5>No Notes Here</h5>") {
+        if (document.getElementById("my-all-notes").innerHTML == `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section above to add notes.</h5>`) {
             document.getElementById("my-all-notes").innerHTML = "";
             all_notes_in_document(text, count)
         } else {
