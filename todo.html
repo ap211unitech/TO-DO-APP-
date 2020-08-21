@@ -5,7 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO APP</title>
+
+    <!-- Some external style -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+
     <!-- Title image -->
+
     <!-- default favicon -->
     <link rel="shortcut icon"
         href="https://user-images.githubusercontent.com/1711854/28282651-29665d66-6af9-11e7-96d1-e9346a836007.png"
@@ -30,12 +40,14 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="back_to_top">
         <a class="navbar-brand" href="/">TODO APP</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,10 +107,13 @@
 
     <!-- Footer -->
     <footer class="jumbotron footer" style="margin-bottom: 0px;padding: 40px;">
-        <div class="container">
+        <div class="container" style="display: flex;justify-content: space-between;">
             <span class="text-muted">All right reserved | &copy; 2020-2021 | <a
                     href="https://ap211unitech.github.io/TODO-APP/">TODO APP</a></span>
+
+            <span><a href="#back_to_top">Back To Top</a></span>
         </div>
+
     </footer>
 
 
