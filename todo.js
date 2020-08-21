@@ -11,7 +11,7 @@ all_notes_in_document = (tt, value, key) => {
         <div class="card-body">
             <h5 class="card-title">${tt}</h5>
             <p class="card-text">${value}</p>
-            <a href="#" class="btn btn-primary" id="delete_note" onclick=delete_note(${key})>Delete Note</a>
+            <a class="btn btn-primary" id="delete_note" onclick=delete_note(${key})>Delete Note</a>
         </div>
     </div>`
 }
