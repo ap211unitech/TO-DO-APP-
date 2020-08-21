@@ -24,6 +24,7 @@ display_all_notes = () => {
     //All Values from Localstorage
     let items = Object.values(localStorage);
     let keys = Object.keys(localStorage);
+    
     if (items.length > 0) {
         for (let i = 0; i < items.length; i++) {
             let perfect_item = JSON.parse(String(items[i]));
