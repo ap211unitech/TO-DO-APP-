@@ -7,7 +7,7 @@ window.onload = () => {
 
 //Function for Showing all Notes in WEBPAGE
 all_notes_in_document = (tt, value, key) => {
-    document.getElementById("my-all-notes").innerHTML += `<div class="noteCard card mt-2 mb-4 mr-4" style="width: 21rem;height:auto" id=${key}>
+    document.getElementById("my-all-notes").innerHTML += `<div class="noteCard card mt-2 mb-4 mr-4" style="width: 20.9rem;" id=${key}>
         <div class="card-body">
             <h5 class="card-title">${tt}</h5>
             <p class="card-text">${value}</p>
