@@ -24,7 +24,7 @@ display_all_notes = () => {
     //All Values from Localstorage
     let items = Object.values(localStorage);
     let keys = Object.keys(localStorage);
-    
+
     if (items.length > 0) {
         for (let i = 0; i < items.length; i++) {
             let perfect_item = JSON.parse(String(items[i]));
@@ -44,8 +44,12 @@ let count = Object.keys(localStorage).sort().reverse()[0] === undefined ? 0 : Nu
 
 //Adding a note
 document.getElementById("add_note").addEventListener("click", () => {
-    let text = document.getElementById("text_area").value;
-    let note_title = document.getElementById("note_title").value;
+    let text = (document.getElementById("text_area").value).trim();
+    let note_title = (document.getElementById("note_title").value).trim();
+    if (text == null || text == undefined || text.length == 0 || note_title == null || note_title == undefined || note_title.length == 0) {
+        alert("Note's text and Title may not be empty");
+        return;
+    }
     if (Object.keys(localStorage).indexOf(String(count)) == -1) {
 
         // titles.push(note_title);
@@ -74,7 +78,6 @@ document.getElementById("add_note").addEventListener("click", () => {
 
 //Deleting a Note
 function delete_note(key) {
-    // console.log("Note deleted", key);
     localStorage.removeItem(key);
     display_all_notes();
 }
@@ -82,26 +85,18 @@ function delete_note(key) {
 //Searching a Note
 document.getElementById("search").addEventListener("input", () => {
 
-    // console.clear()
-
-    // console.log("search");
-
     let inputVal = document.getElementById("search").value.toLowerCase();
-
     let allcards = document.getElementsByClassName("noteCard");
 
     Array.from(allcards).forEach(element => {
-        if (element.getElementsByTagName("p")[0].innerText.toLowerCase().includes(inputVal)) {
-
+        const cardTitle = element.getElementsByTagName("h5")[0].innerText.toLowerCase();
+        const cardContent = element.getElementsByTagName("p")[0].innerText.toLowerCase();
+        if (cardContent.includes(inputVal) || cardTitle.includes(inputVal)) {
             element.style.display = "block";
-
         }
-
         else {
-
             element.style.display = "none";
         }
-        // console.log(element.getElementsByTagName("p")[0].innerText,inputVa)
     });
 
 })
