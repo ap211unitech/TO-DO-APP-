@@ -11,6 +11,10 @@
         html {
             scroll-behavior: smooth;
         }
+
+        #backToTop {
+            scroll-margin-top: 100px;
+        }
     </style>
 
 
@@ -47,7 +51,7 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" id="back_to_top">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="https://ap211unitech.github.io/TODO-APP/">TODO APP</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +75,7 @@
 
     <!-- Add your notes here -->
     <div class="container" style="margin-top: 100px;" id="addYourNotesHere">
-        <h1>
+        <h1 id="backToTop">
             Welcome to TO-DO APP
         </h1>
     </div>
@@ -90,7 +94,7 @@
         <!-- your total notes -->
 
 
-        <div class="container card mt-3 mb-5">
+        <div class="container card mt-5 mb-5">
             <h1 style="margin-top: 20px;">Your Notes</h1>
             <div id="emptyNotes" class="mt-3">
                 <h4>Noting to show here...</h4>
@@ -118,7 +122,7 @@
             <span class="text-muted">All right reserved | &copy; 2020-2021 | <a
                     href="https://ap211unitech.github.io/TODO-APP/">TODO APP</a></span>
 
-            <span><a href="#addYourNotesHere">Back To Top</a></span>
+            <span><a href="#backToTop">Back To Top</a></span>
         </div>
 
     </footer>
