@@ -70,7 +70,7 @@
     </nav>
 
     <!-- Add your notes here -->
-    <div class="container" style="margin-top: 100px;">
+    <div class="container" style="margin-top: 100px;" id="addYourNotesHere">
         <h1>
             Welcome to TO-DO APP
         </h1>
@@ -79,11 +79,11 @@
         <div class="container card mt-5">
             <div class="mt-4">
                 <h3>Add Your Notes Here</h3>
-                <input class="form-control mt-4" type="text" id="note_title" placeholder="Add your Notes Title here"
+                <input class="form-control mt-4" type="text" id="noteTitle" placeholder="Add your Notes Title here"
                     style="max-width: 400px;" required>
                 <textarea class="form-control mb-3 mt-4" rows="7" aria-label="With textarea"
-                    placeholder="Take your Notes here" id="text_area" required></textarea>
-                <button type="button" class="btn btn-primary mb-3" id="add_note">Add Note</button>
+                    placeholder="Take your Notes here" id="noteText" required></textarea>
+                <button type="button" class="btn btn-primary mb-3" id="addNote">Add Note</button>
             </div>
         </div>
 
@@ -92,6 +92,11 @@
 
         <div class="container card mt-3 mb-5">
             <h1 style="margin-top: 20px;">Your Notes</h1>
+            <div id="emptyNotes" class="mt-3">
+                <h4>Noting to show here...</h4>
+                <h5 class="mt-2">Use <a href="#addYourNotesHere">Add Your notes Here</a> to add Your Notes</h5>
+            </div>
+
             <div class="all-notes" id="my-all-notes" style="display: flex;flex-wrap: wrap;">
                 <!-- <div class="card mt-2 mb-4 mr-4" style="width: 18rem;">
                 <div class="card-body">
@@ -113,7 +118,7 @@
             <span class="text-muted">All right reserved | &copy; 2020-2021 | <a
                     href="https://ap211unitech.github.io/TODO-APP/">TODO APP</a></span>
 
-            <span><a href="#back_to_top">Back To Top</a></span>
+            <span><a href="#addYourNotesHere">Back To Top</a></span>
         </div>
 
     </footer>

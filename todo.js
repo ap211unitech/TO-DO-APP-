@@ -1,92 +1,112 @@
-window.onload = () => {
-    display_all_notes();
-}
 
 
-//Function for Showing all Notes in WEBPAGE
-all_notes_in_document = (tt, value, key) => {
-    document.getElementById("my-all-notes").innerHTML += `<div class="noteCard card mt-2 mb-4 mr-4" style="width: 20.9rem;" id=${key}>
+/*
+DOM for a single Note
+*/
+
+const note = (title, text, index) => {
+    document.getElementById("my-all-notes").innerHTML += `<div class="noteCard card mt-2 mb-4 mr-4" style="width: 20.9rem;">
         <div class="card-body">
-            <h5 class="card-title">${tt}</h5>
-            <p class="card-text">${value}</p>
-            <a class="btn btn-primary" id="delete_note" onclick=delete_note(${key})>Delete Note</a>
+        <h5 class="card-title">${title}</h5>
+            <p class="card-text">${text}</p>
+            <a class="btn btn-primary" id="delete_note" onclick=deleteNote(${index})>Delete Note</a>
         </div>
     </div>`
 }
 
 
 
-display_all_notes = () => {
-    document.getElementById("my-all-notes").innerHTML = ""
-    let orderArray = [];
-    //All Values from Localstorage
-    let items = Object.values(localStorage);
-    let keys = Object.keys(localStorage);
+/*
+    Display all Notes
+*/
 
-    for (let index = 0; index < keys.length; index++) {
-        orderArray[keys[index]] = items[index];
-    }
-    orderArray = orderArray.filter(elm => {
-        return elm != null
-    })
-
-    keys = keys.sort()
-
-    if (orderArray.length > 0) {
-        for (let i = 0; i < orderArray.length; i++) {
-            let perfectItem = JSON.parse(orderArray[i]);
-            if (perfectItem.title != undefined || perfectItem.title != null || perfectItem.text != undefined || perfectItem.text != null) {
-                all_notes_in_document(perfectItem.title, perfectItem.text, keys[i]);
-            }
-        }
+const displayAllNotes = () => {
+    let allNotes = JSON.parse(localStorage.getItem("notes"));
+    if (allNotes == null) {
+        document.getElementById("emptyNotes").style.display = "block";
     } else {
-        // console.log("Empty localstorage");
-        document.getElementById("my-all-notes").innerHTML = `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section to add notes.</h5>`;
+        document.getElementById("emptyNotes").style.display = "none";
+        for (let index = 0; index < allNotes.length; index++) {
+            const element = JSON.parse(allNotes[index]);
+            note(element.noteTitle, element.noteText, index);
+        }
     }
 }
-let count = Object.keys(localStorage).sort().reverse()[0] === undefined ? 0 : Number(Object.keys(localStorage).sort().reverse()[0]) + 1;
 
 
-//Adding a note
-document.getElementById("add_note").addEventListener("click", () => {
-    let text = (document.getElementById("text_area").value).trim();
-    let note_title = (document.getElementById("note_title").value).trim();
-    if (text == null || text == undefined || text.length == 0 || note_title == null || note_title == undefined || note_title.length == 0) {
-        alert("Note's text and Title may not be empty");
+/*
+Add a Note
+*/
+
+const addNote = () => {
+    let noteTitle = document.getElementById("noteTitle").value.trim();
+    let noteText = document.getElementById("noteText").value.trim();
+    let allNotes = localStorage.getItem("notes");
+
+    // Validators
+    if (noteTitle == null ||
+        noteTitle == undefined ||
+        noteTitle.length == 0 ||
+        noteText == null ||
+        noteTitle == undefined ||
+        noteText.length == 0
+    ) {
+        alert("Note's Title or Text may not be empty");
         return;
     }
-    if (Object.keys(localStorage).indexOf(String(count)) == -1) {
 
-        localStorage.setItem(String(count), JSON.stringify({ title: note_title, text: text }));
-        document.getElementById("text_area").value = "";
-        document.getElementById("note_title").value = "";
+    document.getElementById("noteTitle").value = "";
+    document.getElementById("noteText").value = "";
 
-        if (document.getElementById("my-all-notes").innerHTML == `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section to add notes.</h5>`) {
 
-            document.getElementById("my-all-notes").innerHTML = "";
-
-            display_all_notes();
-
-        } else {
-
-            // all_notes_in_document(text, count);
-            display_all_notes();
-
+    if (allNotes == null || allNotes == undefined) {
+        let noteData = {
+            noteTitle: noteTitle,
+            noteText: noteText
         }
-
-        // display_all_notes();
-        count++;
+        let notesArray = [];
+        notesArray.push(JSON.stringify(noteData));
+        localStorage.setItem("notes", JSON.stringify(notesArray));
     }
-});
 
+    else {
+        let noteData = {
+            noteTitle: noteTitle,
+            noteText: noteText
+        }
+        let notesArray = JSON.parse(localStorage.getItem("notes"));
+        notesArray.push(JSON.stringify(noteData));
+        localStorage.setItem("notes", JSON.stringify(notesArray));
+    }
 
-//Deleting a Note
-function delete_note(key) {
-    localStorage.removeItem(key);
-    display_all_notes();
+    document.getElementById("my-all-notes").innerHTML = "";
+    displayAllNotes();
 }
 
-//Searching a Note
+
+
+/*
+    Delete a Note
+*/
+
+const deleteNote = (index) => {
+    let allNotes = JSON.parse(localStorage.getItem("notes"));
+    allNotes.splice(index, 1);
+    if (allNotes != null && allNotes != undefined && allNotes.length != 0) {
+        localStorage.setItem("notes", JSON.stringify(allNotes));
+    }
+    else {
+        localStorage.removeItem("notes");
+    }
+
+    document.getElementById("my-all-notes").innerHTML = "";
+    displayAllNotes();
+}
+
+/*
+    Search a Note
+*/
+
 document.getElementById("search").addEventListener("input", () => {
 
     let inputVal = document.getElementById("search").value.toLowerCase();
@@ -104,4 +124,7 @@ document.getElementById("search").addEventListener("input", () => {
     });
 
 })
+
+document.getElementById("addNote").addEventListener("click", addNote);
+window.onload = displayAllNotes();
 
