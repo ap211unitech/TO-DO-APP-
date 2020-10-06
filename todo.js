@@ -1,9 +1,7 @@
 window.onload = () => {
-    // console.log("Window loaded");
     display_all_notes();
 }
 
-// let titles = [];
 
 //Function for Showing all Notes in WEBPAGE
 all_notes_in_document = (tt, value, key) => {
@@ -20,27 +18,34 @@ all_notes_in_document = (tt, value, key) => {
 
 display_all_notes = () => {
     document.getElementById("my-all-notes").innerHTML = ""
-
+    let orderArray = [];
     //All Values from Localstorage
     let items = Object.values(localStorage);
     let keys = Object.keys(localStorage);
 
-    if (items.length > 0) {
-        for (let i = 0; i < items.length; i++) {
-            let perfect_item = JSON.parse(String(items[i]));
-            // console.log(perfect_item)
-            all_notes_in_document(perfect_item.title, perfect_item.text, keys[i]);
+    for (let index = 0; index < keys.length; index++) {
+        orderArray[keys[index]] = items[index];
+    }
+    orderArray = orderArray.filter(elm => {
+        return elm != null
+    })
+
+    keys = keys.sort()
+
+    if (orderArray.length > 0) {
+        for (let i = 0; i < orderArray.length; i++) {
+            let perfectItem = JSON.parse(orderArray[i]);
+            if (perfectItem.title != undefined || perfectItem.title != null || perfectItem.text != undefined || perfectItem.text != null) {
+                all_notes_in_document(perfectItem.title, perfectItem.text, keys[i]);
+            }
         }
     } else {
-
         // console.log("Empty localstorage");
         document.getElementById("my-all-notes").innerHTML = `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section to add notes.</h5>`;
-
     }
 }
 let count = Object.keys(localStorage).sort().reverse()[0] === undefined ? 0 : Number(Object.keys(localStorage).sort().reverse()[0]) + 1;
 
-// console.log(count)
 
 //Adding a note
 document.getElementById("add_note").addEventListener("click", () => {
@@ -52,7 +57,6 @@ document.getElementById("add_note").addEventListener("click", () => {
     }
     if (Object.keys(localStorage).indexOf(String(count)) == -1) {
 
-        // titles.push(note_title);
         localStorage.setItem(String(count), JSON.stringify({ title: note_title, text: text }));
         document.getElementById("text_area").value = "";
         document.getElementById("note_title").value = "";
@@ -60,7 +64,7 @@ document.getElementById("add_note").addEventListener("click", () => {
         if (document.getElementById("my-all-notes").innerHTML == `<h5 class="mt-4">Nothing to show! Use "Add Your Notes Here" section to add notes.</h5>`) {
 
             document.getElementById("my-all-notes").innerHTML = "";
-            // all_notes_in_document(text, count)
+
             display_all_notes();
 
         } else {
@@ -101,5 +105,3 @@ document.getElementById("search").addEventListener("input", () => {
 
 })
 
-
-// console.log(titles)
