@@ -4,12 +4,15 @@
 DOM for a single Note
 */
 
-const note = (title, text, index) => {
+const note = (title, text, index, date) => {
     document.getElementById("my-all-notes").innerHTML += `<div class="noteCard card mt-2 mb-4 mr-4" style="width: 20.9rem;">
         <div class="card-body">
         <h5 class="card-title">${title}</h5>
-            <p class="card-text">${text}</p>
-            <a class="btn btn-primary" id="delete_note" onclick=deleteNote(${index})>Delete Note</a>
+            <p class="card-text" style="white-space: pre-wrap;">${text}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <a class="btn btn-primary" id="delete_note" onclick=deleteNote(${index})>Delete Note</a>
+                <p class="mt-3 text-primary font-italic">-- ${date}</p>
+            </div>
         </div>
     </div>`
 }
@@ -28,7 +31,7 @@ const displayAllNotes = () => {
         document.getElementById("emptyNotes").style.display = "none";
         for (let index = 0; index < allNotes.length; index++) {
             const element = JSON.parse(allNotes[index]);
-            note(element.noteTitle, element.noteText, index);
+            note(element.noteTitle, element.noteText, index, element.date);
         }
     }
 }
@@ -39,6 +42,7 @@ Add a Note
 */
 
 const addNote = () => {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
     let noteTitle = document.getElementById("noteTitle").value.trim();
     let noteText = document.getElementById("noteText").value.trim();
     let allNotes = localStorage.getItem("notes");
@@ -57,12 +61,14 @@ const addNote = () => {
 
     document.getElementById("noteTitle").value = "";
     document.getElementById("noteText").value = "";
+    let currentDate = `${months[new Date().getMonth()]} ${new Date().getDate()}, ${new Date().toLocaleTimeString()}`;
 
 
     if (allNotes == null || allNotes == undefined) {
         let noteData = {
             noteTitle: noteTitle,
-            noteText: noteText
+            noteText: noteText,
+            date: currentDate
         }
         let notesArray = [];
         notesArray.push(JSON.stringify(noteData));
@@ -72,7 +78,8 @@ const addNote = () => {
     else {
         let noteData = {
             noteTitle: noteTitle,
-            noteText: noteText
+            noteText: noteText,
+            date: currentDate
         }
         let notesArray = JSON.parse(localStorage.getItem("notes"));
         notesArray.push(JSON.stringify(noteData));
@@ -115,7 +122,8 @@ document.getElementById("search").addEventListener("input", () => {
     Array.from(allcards).forEach(element => {
         const cardTitle = element.getElementsByTagName("h5")[0].innerText.toLowerCase();
         const cardContent = element.getElementsByTagName("p")[0].innerText.toLowerCase();
-        if (cardContent.includes(inputVal) || cardTitle.includes(inputVal)) {
+        const cardDate = element.getElementsByTagName("p")[1].innerText.toLowerCase();
+        if (cardContent.includes(inputVal) || cardTitle.includes(inputVal) || cardDate.includes(inputVal)) {
             element.style.display = "block";
         }
         else {
