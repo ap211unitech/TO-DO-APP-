@@ -40,7 +40,7 @@
         href="https://user-images.githubusercontent.com/1711854/28282651-29665d66-6af9-11e7-96d1-e9346a836007.png"
         sizes="96x96" type="image/png">
 
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -68,19 +68,21 @@
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Type to Search Notes" aria-label="Search"
                     id="search">
-                <button class="btn btn-outline-success my-2 my-sm-0" disabled type="submit" id="searchNote">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" disabled type="submit"
+                    id="searchNote">Search</button>
             </form>
         </div>
     </nav>
 
     <!-- Add your notes here -->
     <div class="container" style="margin-top: 100px;" id="addYourNotesHere">
-        <h1 id="backToTop">
+        <h1 id="backToTop" style="display: flex;align-items: center; gap: 12px;">
+            <i class="fa fa-check-square-o" style="font-size: 4rem;"></i>
             Welcome to TO-DO APP
         </h1>
     </div>
     <div class="container">
-        <div class="container card mt-5">
+        <div class="container card mt-4">
             <div class="mt-4">
                 <h3>Add Your Notes Here</h3>
                 <input class="form-control mt-4" type="text" id="noteTitle" placeholder="Add your Notes Title here"
@@ -98,7 +100,8 @@
             <h1 style="margin-top: 20px;">Your Notes</h1>
             <div id="emptyNotes" class="mt-3">
                 <h4>Noting to show here...</h4>
-                <h5 class="mt-2">Use <a href="#addYourNotesHere">Add Your notes Here</a> to add Your Notes</h5>
+                <p class="mt-2" style="font-size: 18px;">Use <a href="#addYourNotesHere">Add Your notes Here</a> to add
+                    Your Notes</p>
             </div>
 
             <div class="all-notes" id="my-all-notes" style="display: flex;flex-wrap: wrap;">

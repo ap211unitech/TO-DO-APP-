@@ -5,12 +5,15 @@ DOM for a single Note
 */
 
 const note = (title, text, index, date) => {
-    document.getElementById("my-all-notes").innerHTML += `<div class="noteCard card mt-2 mb-4 mr-4" style="width: 20.9rem;">
+    document.getElementById("my-all-notes").innerHTML += `<div class="noteCard card mt-2 mb-3 mr-4" style="width: 100%;">
         <div class="card-body">
         <h5 class="card-title">${title}</h5>
             <p class="card-text" style="white-space: pre-wrap;">${text}</p>
             <div class="d-flex justify-content-between align-items-center">
-                <a class="btn btn-primary" id="delete_note" onclick=deleteNote(${index})>Delete Note</a>
+                <div>
+                    <a class="btn btn-secondary mr-2" id="edit_note" onclick=deleteNote(${index})>Edit Note</a>
+                    <a class="btn btn-danger" id="delete_note" onclick=deleteNote(${index})>Delete Note</a>
+                </div>
                 <p class="mt-3 text-primary font-italic">-- ${date}</p>
             </div>
         </div>
