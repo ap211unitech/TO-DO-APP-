@@ -11,10 +11,12 @@ const note = (title, text, index, date) => {
             <p class="card-text" style="white-space: pre-wrap;">${text}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <!-- <a class="btn btn-secondary mr-2" id="edit_note" onclick=deleteNote(${index})>Edit Note</a> -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal" onclick=editNote(${index})>
+                        Edit Note
+                    </button>
                     <a class="btn btn-danger" id="delete_note" onclick=deleteNote(${index})>Delete Note</a>
                 </div>
-                <p class="mt-3 text-primary font-italic">-- ${date}</p>
+                <p class="mt-3 text-primary font-italic">-- Updated on ${date}</p>
             </div>
         </div>
     </div>`
@@ -94,6 +96,54 @@ const addNote = () => {
 }
 
 
+/*
+    Edit Note 
+*/
+const editNote = (noteIndex) => {
+    let allNotes = JSON.parse(localStorage.getItem("notes"));
+    const currentNote = JSON.parse(allNotes[noteIndex]);
+
+    // Set Index in LocalStorage
+    localStorage.setItem('currentlyEditing', noteIndex);
+
+    // Fill previous data in Modal
+    document.getElementById("edit-noteTitle").value = currentNote.noteTitle;
+    document.getElementById("edit-noteText").value = currentNote.noteText;
+}
+
+const saveEditedNote = () => {
+    // Get Current Date
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec']
+    let currentDate = `${months[new Date().getMonth()]} ${new Date().getDate()}, ${new Date().toLocaleTimeString()}`;
+
+    const noteTitle = document.getElementById("edit-noteTitle").value;
+    const noteText = document.getElementById("edit-noteText").value;
+    const currentlyEditingIndex = Number(localStorage.getItem('currentlyEditing'));
+
+    // Update new data in localstorage
+    let noteData = {
+        noteTitle: noteTitle,
+        noteText: noteText,
+        date: currentDate
+    }
+    let notesArray = JSON.parse(localStorage.getItem("notes"));
+    notesArray[currentlyEditingIndex] = JSON.stringify(noteData);
+    localStorage.setItem("notes", JSON.stringify(notesArray));
+
+    // Close Modal
+    closeEditModal();
+
+    // Remove currentlyIndex from localStorage
+    localStorage.removeItem('currentlyEditing');
+
+    document.getElementById("my-all-notes").innerHTML = "";
+    displayAllNotes();
+}
+
+const closeEditModal = () => {
+    localStorage.removeItem('currentlyEditing');
+    document.getElementById("closeEditModal").click();
+}
 
 /*
     Delete a Note
@@ -137,5 +187,7 @@ document.getElementById("search").addEventListener("input", () => {
 })
 
 document.getElementById("addNote").addEventListener("click", addNote);
+document.getElementById("saveEditedNote").addEventListener("click", saveEditedNote);
+document.getElementById("closeEditModal").addEventListener("click", closeEditModal);
 window.onload = displayAllNotes();
 
