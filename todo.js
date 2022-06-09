@@ -11,10 +11,10 @@ const note = (title, text, index, date) => {
             <p class="card-text" style="white-space: pre-wrap;">${text}</p>
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal" onclick=editNote(${index})>
+                    <button type="button" class="btn btn-primary mr-2 mb-2" data-toggle="modal" data-target="#editModal" onclick=editNote(${index})>
                         Edit Note
                     </button>
-                    <a class="btn btn-danger" id="delete_note" onclick=deleteNote(${index})>Delete Note</a>
+                    <a class="btn btn-danger mb-2" id="delete_note" onclick=deleteNote(${index})>Delete Note</a>
                 </div>
                 <p class="mt-3 text-primary font-italic">-- Updated on ${date}</p>
             </div>
