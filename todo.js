@@ -1,7 +1,7 @@
 
 
 /*
-DOM for a single Note
+    DOM for a single Note
 */
 
 const note = (title, text, index, date) => {
@@ -43,7 +43,7 @@ const displayAllNotes = () => {
 
 
 /*
-Add a Note
+    Add a Note
 */
 
 const addNote = () => {
@@ -190,4 +190,6 @@ document.getElementById("addNote").addEventListener("click", addNote);
 document.getElementById("saveEditedNote").addEventListener("click", saveEditedNote);
 document.getElementById("closeEditModal").addEventListener("click", closeEditModal);
 window.onload = displayAllNotes();
+
+// console.log('Working...')
 
